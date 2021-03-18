@@ -108,7 +108,7 @@ public:
 		f_in >> buff;
 		assert(buff == "SAT");
 		int tmp;
-		while (f_out >> tmp) {
+		while (f_in >> tmp) {
 			if (tmp <= 0) continue;
 			int x, y, z;
 			tie(x, y, z) = reId(tmp);

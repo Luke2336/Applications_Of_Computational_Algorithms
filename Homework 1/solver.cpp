@@ -43,7 +43,7 @@ public:
 			for (int j = 0; j < cell.size(); ++j) {
 				vector<int> tmp(cell.size());
 				for (int k = 0; k < cell.size(); ++k)
-					tmp[k] = id(i, k, j);
+					tmp[k] = id(i, j, k);
 				genClause(CNF, tmp);
 			}
 		}
@@ -52,7 +52,7 @@ public:
 			for (int j = 0; j < cell.size(); ++j) {
 				vector<int> tmp(cell.size());
 				for (int k = 0; k < cell.size(); ++k)
-					tmp[k] = id(i, k, j);
+					tmp[k] = id(j, i, k);
 				genClause(CNF, tmp);
 			}
 		}
@@ -99,7 +99,7 @@ public:
 	tuple<int, int, int> reId(int id) {
 		id--;
 		int sz = cell.size();
-		return make_tuple(id / sz / sz, id / sz %sz, id % sz);
+		return make_tuple(id / sz / sz, id / sz % sz, id % sz);
 	}
 	void output(char *tmpFile, char *outFile) {
 		fstream f_in, f_out;

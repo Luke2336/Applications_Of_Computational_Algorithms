@@ -84,12 +84,16 @@ public:
 			f_out << "0\n";
 		}
 		f_out.close();
+		char debug[200] = "cat ";
+		strcat(debug, outFile);
+		system(debug);
 		char cmd[200];
 		strcpy(cmd, MiniSAT);
 		strcat(cmd, " ");
 		strcat(cmd, outFile);
 		strcat(cmd, " ");
 		strcat(cmd, tmpFile);
+		cout << cmd << "\n";
 		system(cmd);
 	}
 	tuple<int, int, int> reId(int id) {
@@ -114,7 +118,7 @@ public:
 		f_out.open(outFile, ios::out);
 		for (int i = 0; i < cell.size(); ++i)
 			for (int j = 0; j < cell.size(); ++j)
-				f_out << cell[i][j] << " \n"[j == cell.size() - 1];
+				f_out << cell[i][j] + 1 << " \n"[j == cell.size() - 1];
 		f_out.close();
 	}
 	void solve(char *outFile, char *MiniSAT) {

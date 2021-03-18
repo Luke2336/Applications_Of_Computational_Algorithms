@@ -5,7 +5,7 @@ private:
 	vector<vector<int>> cell;
 public:
 	Puzzle() {}
-	Puzzle(char* filename) {
+	Puzzle(const char* filename) {
 		fstream f_in;
 		f_in.open(filename, ios::in);
 		vector<int> tmp;
@@ -32,7 +32,7 @@ public:
 			clause[0] = -i;
 			for (auto j : v) {
 				clause[1] = -j;
-				if (i != j)
+				if (i < j)
 					CNF.push_back(clause);
 			}
 		}			
@@ -43,7 +43,7 @@ public:
 			for (int j = 0; j < cell.size(); ++j) {
 				vector<int> tmp(cell.size());
 				for (int k = 0; k < cell.size(); ++k)
-					tmp[k] = id(i, j, k);
+					tmp[k] = id(k, j, i);
 				genClause(CNF, tmp);
 			}
 		}
@@ -52,7 +52,7 @@ public:
 			for (int j = 0; j < cell.size(); ++j) {
 				vector<int> tmp(cell.size());
 				for (int k = 0; k < cell.size(); ++k)
-					tmp[k] = id(j, i, k);
+					tmp[k] = id(j, k, i);
 				genClause(CNF, tmp);
 			}
 		}
@@ -73,7 +73,7 @@ public:
 				if (cell[i][j] != -1)
 					CNF.push_back(vector<int>(1, id(i, j, cell[i][j])));
 	}
-	void callMiniSAT(char *tmpFile, char *outFile, char *MiniSAT, vector<vector<int>> &CNF) {
+	void callMiniSAT(const char *tmpFile, const char *outFile, const char *MiniSAT, const vector<vector<int>> &CNF) {
 		fstream f_out;
 		f_out.open(outFile, ios::out);
 		f_out << "c\np cnf ";
@@ -101,7 +101,7 @@ public:
 		int sz = cell.size();
 		return make_tuple(id / sz / sz, id / sz % sz, id % sz);
 	}
-	void output(char *tmpFile, char *outFile) {
+	void output(const char *tmpFile, const char *outFile) {
 		fstream f_in, f_out;
 		f_in.open(tmpFile, ios::in);
 		string buff;
@@ -121,7 +121,7 @@ public:
 				f_out << cell[i][j] + 1 << " \n"[j == cell.size() - 1];
 		f_out.close();
 	}
-	void solve(char *outFile, char *MiniSAT) {
+	void solve(const char *outFile, const char *MiniSAT) {
 		vector<vector<int>> CNF;
 		genCNF(CNF);
 		char tmpFile[] = "tmp.txt";

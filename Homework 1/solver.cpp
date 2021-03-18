@@ -84,9 +84,6 @@ public:
 			f_out << "0\n";
 		}
 		f_out.close();
-		char debug[200] = "cat ";
-		strcat(debug, outFile);
-		system(debug);
 		char cmd[200];
 		strcpy(cmd, MiniSAT);
 		strcat(cmd, " ");
@@ -127,6 +124,7 @@ public:
 		char tmpFile[] = "tmp.txt";
 		callMiniSAT(tmpFile, outFile, MiniSAT, CNF);
 		output(tmpFile, outFile);
+		system("rm tmp.txt");
 	}
 };
 int main(int argc, char *argv[]) {

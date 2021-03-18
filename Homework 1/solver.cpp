@@ -43,7 +43,7 @@ public:
 			for (int j = 0; j < cell.size(); ++j) {
 				vector<int> tmp(cell.size());
 				for (int k = 0; k < cell.size(); ++k)
-					tmp.push_back(id(i, k, j));
+					tmp[k] = id(i, k, j);
 				genClause(CNF, tmp);
 			}
 		}
@@ -52,7 +52,7 @@ public:
 			for (int j = 0; j < cell.size(); ++j) {
 				vector<int> tmp(cell.size());
 				for (int k = 0; k < cell.size(); ++k)
-					tmp.push_back(id(k, i, j));
+					tmp[k] = id(i, k, j);
 				genClause(CNF, tmp);
 			}
 		}
@@ -60,7 +60,7 @@ public:
 		for (int x = 0, sq = sqrt(cell.size()); x < sq; ++x) {
 			for (int y = 0; y < sq; ++y) {
 				for (int k = 0; k < cell.size(); ++k) {
-					vector<int> tmp(cell.size());
+					vector<int> tmp;
 					for (int i = 0; i < sq; ++i)
 						for (int j = 0; j < sq; ++j)
 							tmp.push_back(id(i + x * sq, j + y * sq, k));

@@ -3,21 +3,6 @@ using namespace std;
 class Puzzle {
 private:
     vector<vector<int>> cell;
-public:
-    Puzzle() {}
-    Puzzle(const char* filename) {
-        fstream f_in;
-        f_in.open(filename, ios::in);
-        vector<int> tmp;
-        for (int x; f_in >> x;)
-            tmp.push_back(x);
-        f_in.close();
-        int N = sqrt(tmp.size());
-        cell.resize(N, vector<int>(N));
-        for (int i = 0, x = 0; i < N; ++i)
-            for (int j = 0; j < N; ++j)
-                cell[i][j] = tmp[x++] - 1;
-    }
     int id(int x, int y, int z) { // (ROW, COL, NUM)
         return (x * cell.size() + y) * cell.size() + z + 1;
     }
@@ -129,6 +114,21 @@ public:
         }
         f_in.close();
         f_out.close();
+    }
+public:
+    Puzzle() {}
+    Puzzle(const char* filename) {
+        fstream f_in;
+        f_in.open(filename, ios::in);
+        vector<int> tmp;
+        for (int x; f_in >> x;)
+            tmp.push_back(x);
+        f_in.close();
+        int N = sqrt(tmp.size());
+        cell.resize(N, vector<int>(N));
+        for (int i = 0, x = 0; i < N; ++i)
+            for (int j = 0; j < N; ++j)
+                cell[i][j] = tmp[x++] - 1;
     }
     void solve(const char *outFile, const char *MiniSAT) {
         vector<vector<int>> CNF;

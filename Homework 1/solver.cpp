@@ -38,6 +38,15 @@ public:
 		}			
 	}
 	void genCNF(vector<vector<int>> &CNF) {
+		// CELL
+		for (int i = 0; i < cell.size(); ++i) {
+			for (int j = 0; j < cell.size(); ++j) {
+				vector<int> tmp(cell.size());
+				for (int k = 0; k < cell.size(); ++k)
+					tmp[k] = id(i, j, k);
+				genClause(CNF, tmp);
+			}
+		}
 		// ROW
 		for (int i = 0; i < cell.size(); ++i) {
 			for (int j = 0; j < cell.size(); ++j) {
